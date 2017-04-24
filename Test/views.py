@@ -39,7 +39,8 @@ def snippet_list(request):
                 print "none"
                 data=list(collection.find({"deviceid":user}))
                 print data
-                return JsonResponse(json.dumps(data,default=json_util.default),safe=False,status=200)
+                return HttpResponse(json.dumps(data, default=json_util.default), status=200,
+                                    content_type="application/json")
 
             else:
                 data = {"deviceid":user,"photoslist":[{"name":photourl,"target":0,"size":photosize}]}
