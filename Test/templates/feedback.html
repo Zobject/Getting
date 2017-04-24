@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>feedback</title>
+    {%for d in data  %}
+        <li>用户名:<br>{{d.deviceid}}</li>
+        <li>反馈内容:</li>
+            {%for x in d.contentlist%}
+                {{x.content}}<br>
+            {%endfor%}
+        <br>
+    {%endfor%}
+</head>
+<body>
+
+</body>
+</html>

@@ -1,7 +1,8 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-
+from  django.shortcuts import render
+import datetime
 
 import json
 from bson import json_util,ObjectId
@@ -15,14 +16,16 @@ except pymongo.errors.ConnectionFailure,e:
 
 
 db=conn['Mmcalculator']
-collection=db.my_collection
+
+
+
 
 @csrf_exempt
 def snippet_list(request):
     """
     List all code snippets, or create a new snippet.
     """
-
+    collection = db.my_collection
     if request.method=='GET':
         #id=data.get('id')
         return JsonResponse({"ok": 1})
@@ -38,11 +41,11 @@ def snippet_list(request):
                 return JsonResponse(json.dumps(data,default=json_util.default),safe=False,status=200)
 
             else:
-                data = {"usr":user,"photourl":[{"url":photourl,"target":0}]}
+                data = {"deviceid":user,"photoslist":[{"name":photourl,"target":0,"size":size}]}
                 #abc = data.get("name")
                 #print abc
-                if (collection.find({"usr": user}).count()> 0):
-                    if(collection.update({"usr":user},{"$addToSet":{"photourl":{"url":photourl,"target":0}}})):
+                if (collection.find({"deviceid": user}).count()> 0):
+                    if(collection.update({"deviceid":user},{"$addToSet":{"photoslist":{"name":photourl,"target":0}}})):
                         return JsonResponse({"target":"sucess"})
                     else:
                         return JsonResponse({"target": "failed"}, status=400)
@@ -52,7 +55,30 @@ def snippet_list(request):
                 #if (collection.find({"photourl": {"url":photourl}}).count()== 0):
 
             return JsonResponse({"target": "success"},status=201)
-            # return JsonResponse(json.dumps(data,default=json_util.default),safe=False,status=201)
+           # return JsonResponse(json.dumps(data,default=json_util.default),safe=False,status=201)
+
+
+
+@csrf_exempt
+def Userfeedback(request):
+    collection = db.Userfeedback
+    if request.method=='POST':
+        data=JSONParser().parse(request)
+        deviceid=data.get("deviceid")
+        content=data.get("content")
+        doc={"deviceid":deviceid,"contentlist":[{"content":content,"createtime":datetime.datetime.now()}]}
+        if(collection.find({"deviceid":deviceid}).count()>0):
+            collection.update({"deviceid":deviceid},{"$addToSet":{"contentlist":{"content":content,"createtime":datetime.datetime.now()}}})
+            return  JsonResponse({"target":"succcess"},status=200)
+        collection.insert(doc)
+    return JsonResponse({"target":"success"},status=201)
+
+def feedback(request):
+    collection=db.Userfeedback
+    collection.find()
+    for d in collection.find():
+        data=list(collection.find())
+    return render(request,"feedback.html",{"data":data})
 
     # elif request.method =='DELETE':
     #     data=JSONParser().parse(request)
