@@ -34,18 +34,19 @@ def snippet_list(request):
             #print data
             user=data.get("usr")
             photourl=data.get("photourl")
+            photosize=data.get("size")
             if photourl==None:
                 print "none"
-                data=list(collection.find({"usr":user}))
+                data=list(collection.find({"deviceid":user}))
                 print data
                 return JsonResponse(json.dumps(data,default=json_util.default),safe=False,status=200)
 
             else:
-                data = {"deviceid":user,"photoslist":[{"name":photourl,"target":0,"size":size}]}
+                data = {"deviceid":user,"photoslist":[{"name":photourl,"target":0,"size":photosize}]}
                 #abc = data.get("name")
                 #print abc
                 if (collection.find({"deviceid": user}).count()> 0):
-                    if(collection.update({"deviceid":user},{"$addToSet":{"photoslist":{"name":photourl,"target":0}}})):
+                    if(collection.update({"deviceid":user},{"$addToSet":{"photoslist":{"name":photourl,"target":0,"size":photosize}}})):
                         return JsonResponse({"target":"sucess"})
                     else:
                         return JsonResponse({"target": "failed"}, status=400)

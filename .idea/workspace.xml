@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aaef0dd4-4303-4164-bb33-a64d6caa0377" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/zobject.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/templates/feedback.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Giting/settings.py" afterPath="$PROJECT_DIR$/Giting/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/urls.py" afterPath="$PROJECT_DIR$/Test/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/views.py" afterPath="$PROJECT_DIR$/Test/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,8 +49,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Test/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="835">
-              <caret line="101" column="17" lean-forward="false" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
+            <state relative-caret-position="383">
+              <caret line="55" column="72" lean-forward="true" selection-start-line="55" selection-start-column="72" selection-end-line="55" selection-end-column="72" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
               </folding>
@@ -96,8 +91,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1750" />
-    <option name="y" value="214" />
+    <option name="x" value="1814" />
+    <option name="y" value="180" />
     <option name="width" value="1104" />
     <option name="height" value="777" />
   </component>
@@ -277,7 +272,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1750" y="214" width="1104" height="777" extended-state="0" />
+    <frame x="1814" y="180" width="1104" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29096046" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -344,8 +339,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Test/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="835">
-          <caret line="101" column="17" lean-forward="false" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
+        <state relative-caret-position="383">
+          <caret line="55" column="72" lean-forward="true" selection-start-line="55" selection-start-column="72" selection-end-line="55" selection-end-column="72" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
           </folding>
