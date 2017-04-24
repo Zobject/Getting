@@ -74,13 +74,14 @@ def Userfeedback(request):
             return  JsonResponse({"target":"succcess"},status=200)
         collection.insert(doc)
     return JsonResponse({"target":"success"},status=201)
-
+feeddata="xx"
 def feedback(request):
     collection=db.Userfeedback
+    global feeddata
     collection.find()
     for d in collection.find():
-        data=list(collection.find())
-    return render(request,"feedback.html",{"data":data})
+        feeddata=list(collection.find())
+    return render(request,"feedback.html",{"data":feeddata})
 
     # elif request.method =='DELETE':
     #     data=JSONParser().parse(request)
