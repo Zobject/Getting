@@ -3,7 +3,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from  django.shortcuts import render
 import datetime
-
+import boto3
+import base64
 import json
 from bson import json_util,ObjectId
 import pymongo
@@ -57,6 +58,17 @@ def snippet_list(request):
                 #if (collection.find({"photourl": {"url":photourl}}).count()== 0):
 
             return JsonResponse({"target": "success"},status=201)
+    elif request.method=='DELETE':
+        data=JSONParser().parse(request)
+        user=data.get("usr")
+        img=data.get("photourl")
+        imgdcode=base64.b64decode(img)
+        client=boto3.client("s3")
+        if(client.delete_object(Bucket='mmcalculator1',
+                             Key=imgdcode)):
+            collection.update({"deviceid":user},{"$pull":{"photoslist":{"name":img}}})
+            return JsonResponse({"target":"success"})
+        return  JsonResponse({"false":1})
            # return JsonResponse(json.dumps(data,default=json_util.default),safe=False,status=201)
 
 
@@ -74,6 +86,10 @@ def Userfeedback(request):
             return  JsonResponse({"target":"succcess"},status=200)
         collection.insert(doc)
     return JsonResponse({"target":"success"},status=201)
+
+
+
+
 feeddata="xx"
 def feedback(request):
     collection=db.Userfeedback
