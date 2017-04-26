@@ -2,6 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from  django.shortcuts import render
+from urllib import unquote
 import datetime
 import boto3
 import base64
@@ -15,11 +16,7 @@ try:
 except pymongo.errors.ConnectionFailure,e:
     print "error %s"%e
 
-
 db=conn['Mmcalculator']
-
-
-
 
 @csrf_exempt
 def snippet_list(request):
@@ -58,7 +55,7 @@ def snippet_list(request):
                 #if (collection.find({"photourl": {"url":photourl}}).count()== 0):
 
             return JsonResponse({"target": "success"},status=201)
-    elif request.method=='DELETE':
+    elif request.method=='PUT':
         data=JSONParser().parse(request)
         user=data.get("usr")
         img=data.get("photourl")
@@ -70,8 +67,6 @@ def snippet_list(request):
             return JsonResponse({"target":"success"})
         return  JsonResponse({"false":1})
            # return JsonResponse(json.dumps(data,default=json_util.default),safe=False,status=201)
-
-
 
 @csrf_exempt
 def Userfeedback(request):
@@ -86,6 +81,36 @@ def Userfeedback(request):
             return  JsonResponse({"target":"succcess"},status=200)
         collection.insert(doc)
     return JsonResponse({"target":"success"},status=201)
+
+
+
+@csrf_exempt
+def UserInfo(request):
+    collection=db.UserInfo
+    if request.method=="POST":
+        data=JSONParser().parse(request)
+        head=data.get("head")
+        nikename=data.get("nikename")
+        deviceid=data.get("deviceid")
+        doc={'deviceid':deviceid,"head":head,"nikename":nikename,"DBsize":"1024M",'Praise':0}
+        collection.insert(doc)
+        return  JsonResponse({"target":"success"})
+    elif request.method=="PUT":
+        data=JSONParser().parse(request)
+        deviceid=data.get("deviceid")
+        nikename=data.get("nikename")
+        Praise=data.get("Praise")
+        head=data.get("head")
+        if nikename!=None:
+            collection.update({'deviceid':deviceid},{"nikename":nikename})
+        elif Praise!=None:
+            collection.update({'deviceid':deviceid},{'Praise':Praise},{"DBsize":"2048M"})
+        elif head!=None:
+            collection.update({'deviceid':deviceid},{"head":head})
+        return  JsonResponse({"target":"success"})
+
+
+
 
 
 
