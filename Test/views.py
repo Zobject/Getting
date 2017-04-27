@@ -60,9 +60,10 @@ def snippet_list(request):
         user=data.get("usr")
         img=data.get("photourl")
         imgdcode=base64.b64decode(img)
+        usercode=base64.b64decode(user)
         client=boto3.client("s3")
         if(client.delete_object(Bucket='mmcalculator1',
-                             Key=imgdcode)):
+                             Key=usercode+"/"+imgdcode)):
             collection.update({"deviceid":user},{"$pull":{"photoslist":{"name":img}}})
             return JsonResponse({"target":"success"})
         return  JsonResponse({"false":1})
